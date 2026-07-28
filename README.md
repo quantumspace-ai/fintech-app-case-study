@@ -74,12 +74,32 @@ activation and must not be described as production-complete.
 - PostgreSQL ledger using integer minor units;
 - idempotent webhook settlement;
 - saved-card and 3DS recovery paths in a provider sandbox;
-- signed Tpay notification validation;
+- successful BLIK pay-in through the Tpay sandbox: the transaction was created,
+  Tpay delivered a signed notification, the backend validated its signature,
+  merchant binding, amount, and currency, and the wallet credited the payment
+  exactly once;
 - KYC and payout adapter boundaries;
 - tenant-scoped Connect contracts, MCP catalogue, SDK/CLI packages, and
   commerce adapter skeletons;
 - automated lint, type checks, tests, production build, and Connect package
   compilation in the private source repository.
+
+### Verified BLIK/Tpay flow
+
+The BLIK sandbox result is significant because it validates the complete
+technical settlement path rather than only a mocked screen or redirect:
+
+1. the backend submitted a six-digit BLIK token to Tpay;
+2. Tpay created the sandbox transaction;
+3. Tpay delivered a signed server-to-server notification;
+4. PayAlt verified the notification, transaction binding, amount, and currency;
+5. the local transaction moved to `SUCCEEDED`;
+6. the PostgreSQL ledger credited the wallet exactly once.
+
+The BLIK token was not stored in transaction metadata or application logs.
+This proves a working sandbox integration and idempotent settlement boundary.
+It does not by itself prove production merchant activation, regulatory
+readiness, or authorization to process real customer funds.
 
 No customer data, credentials, provider identifiers, production configuration,
 or proprietary source code are included here.

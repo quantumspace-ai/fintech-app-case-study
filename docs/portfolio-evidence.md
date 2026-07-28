@@ -5,7 +5,7 @@
 | API design | Wallet API and tenant-scoped Connect contracts | Architecture only |
 | PostgreSQL | Transactional ledger and reservation lifecycle | No schema or migration files |
 | Authentication | Authenticated sessions and role gates | No auth implementation |
-| Payments | Stripe and Tpay sandbox integrations | No provider adapter code |
+| Payments | Successful BLIK pay-in through Tpay sandbox, including signed notification validation and exactly-once ledger settlement; Stripe sandbox flows | No provider adapter code |
 | Webhooks | Signature checks and idempotent settlement | No endpoints or secrets |
 | MCP | Tenant-scoped tool catalogue and proposed actions | Contract description only |
 | Testing | Unit, integration, authorization, and build gates | Verified summary only |
