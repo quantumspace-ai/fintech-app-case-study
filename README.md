@@ -1,11 +1,11 @@
-# PayAlt — Fintech Architecture Case Study
+# PayVault - E-Wallet Architecture Case Study
 
-PayAlt is a technical sandbox for an authenticated e-wallet and a separate
+PayVault is a technical sandbox for an authenticated e-wallet and a separate
 multi-tenant commerce integration platform. This repository documents the
 engineering decisions, safety invariants, validation strategy, and verified
 sandbox results without publishing the proprietary implementation.
 
-> Status: technical case study. PayAlt is not presented as a production-ready
+> Status: technical case study. PayVault is not presented as a production-ready
 > regulated financial service.
 
 ## Problem
@@ -15,7 +15,7 @@ identity controls, webhooks, payouts, and external integrations without
 allowing browser redirects, duplicated events, or tenant connectors to mutate
 money directly.
 
-PayAlt explores a boundary in which:
+PayVault explores a boundary in which:
 
 - Wallet owns customer identity, balances, KYC state, and provider settlement;
 - Connect owns tenant-scoped integrations, MCP tools, SDK/CLI surfaces, and
@@ -28,8 +28,8 @@ PayAlt explores a boundary in which:
 
 ```mermaid
 flowchart LR
-    U[Wallet user] --> W[PayAlt Wallet]
-    M[Merchant tenant] --> C[PayAlt Connect]
+    U[Wallet user] --> W[PayVault Wallet]
+    M[Merchant tenant] --> C[Connect integration layer]
     C -->|Versioned private API| W
     W --> L[(PostgreSQL ledger)]
     W --> K[KYC adapter]
@@ -92,7 +92,7 @@ technical settlement path rather than only a mocked screen or redirect:
 1. the backend submitted a six-digit BLIK token to Tpay;
 2. Tpay created the sandbox transaction;
 3. Tpay delivered a signed server-to-server notification;
-4. PayAlt verified the notification, transaction binding, amount, and currency;
+4. PayVault verified the notification, transaction binding, amount, and currency;
 5. the local transaction moved to `SUCCEEDED`;
 6. the PostgreSQL ledger credited the wallet exactly once.
 
@@ -138,7 +138,7 @@ reduce security exposure.
 ## License
 
 Documentation is provided for portfolio review. No license to use the
-proprietary PayAlt implementation is granted.
+proprietary PayVault implementation is granted.
 
 ## Project banner
 
