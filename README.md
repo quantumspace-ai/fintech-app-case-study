@@ -139,3 +139,7 @@ reduce security exposure.
 
 Documentation is provided for portfolio review. No license to use the
 proprietary PayAlt implementation is granted.
+
+## Project banner
+
+![PayVault e-wallet architecture case study](docs/assets/portfolio-banner.jpg)
